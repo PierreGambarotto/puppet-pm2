@@ -1,0 +1,14 @@
+{
+  "name": "puppet-pm2",
+  "version": "0.1.0",
+  "author": "Pierre Gambarotto <pierre.gambarotto@enseeiht.fr>",
+  "summary": "installs pm2, deploys node.js application",
+  "license": "MIT",
+  "source": "git@github.com:PierreGambarotto/puppet-pm2.git",
+  "project_page": "https://github.com/PierreGambarotto/puppet-pm2",
+  "issues_url": "https://github.com/PierreGambarotto/puppet-pm2",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
