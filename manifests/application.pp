@@ -38,9 +38,9 @@ define pm2::application(
       require => Package[pm2],
       provider => shell,
       command => "/usr/bin/pm2 startup -s --no-daemon -u ${username}",
-      creates => "/etc/init.d/pm2-init-${app_name}.sh"
+      creates => "/etc/init.d/pm2-${app_name}-init.sh"
     }  ->
-    service{"pm2-init-${app_name}.sh":
+    service{"pm2-${app_name}-init.sh":
       ensure => true,
       enable => true,
       hasrestart => true
