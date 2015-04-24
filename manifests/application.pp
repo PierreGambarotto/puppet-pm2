@@ -37,14 +37,10 @@ define pm2::application(
     exec{"generates pm2 init script for user ${username} managing application ${app_name}":
       require => Package[pm2],
       provider => shell,
-      command => "/usr/bin/pm2 startup -s --no-daemon -u ${username} && cp /etc/init.d/pm2-init.sh /etc/init.d/pm2-init-${app_name}",
-      creates => "/etc/init.d/pm2-init-${app_name}"
-    } ->
-    service{'pm2-init.sh':
-      ensure => false,
-      enable => false
-    } ->
-    service{"pm2-init-${app_name}":
+      command => "/usr/bin/pm2 startup -s --no-daemon -u ${username}",
+      creates => "/etc/init.d/pm2-init-${app_name}.sh"
+    }  ->
+    service{"pm2-init-${app_name}.sh":
       ensure => true,
       enable => true,
       hasrestart => true
