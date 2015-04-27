@@ -35,7 +35,7 @@
 #
 # Copyright 2015 Pierre Gambarotto
 #
-class pm2($version = present) {
+class pm2($version = present, $config_dir = "/etc/pm2") {
   require nodejs
 
   package { 'pm2':
@@ -44,4 +44,10 @@ class pm2($version = present) {
     ensure => $version
   }
 
+  file{"${config_dir}":
+    ensure => directory,
+    owner => root,
+    group => root,
+    mode => 755
+  }
 }

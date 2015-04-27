@@ -34,13 +34,21 @@ define pm2::application(
   }
 
   if ($ensure_service){
+    # locate the script source from npm prefix = `npm config get prefix`/lib/nodes_modules/pm2/scripts
+    # init.d form
+    # systemd form
+    #
+
+    $script_name = "pm2-${username}-init"
+    $init_script = "${pm2::config_dir}/${script_name}"
     exec{"generates pm2 init script for user ${username} managing application ${app_name}":
       require => Package[pm2],
       provider => shell,
-      command => "/usr/bin/pm2 startup -s --no-daemon -u ${username}",
-      creates => "/etc/init.d/pm2-${app_name}-init.sh"
+      command => "/usr/bin/pm2 startup -s --no-daemon -u ${username} -n ${init_script}",
+      creates => "${init_script}"
     }  ->
-    service{"pm2-${app_name}-init.sh":
+    service{"${script_name}":
+      path => "${pm2::config_dir}",
       ensure => true,
       enable => true,
       hasrestart => true
